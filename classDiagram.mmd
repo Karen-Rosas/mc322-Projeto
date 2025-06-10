@@ -1,0 +1,47 @@
+classDiagram
+    direction LR
+
+    class Produto {
+        <<abstract>>
+        -String codigo
+        -String nome
+        -double preco
+        -int quantidade
+        +Produto(codigo: String, nome: String, preco: double, quantidade: int)
+        +getCodigo(): String
+        +getNome(): String
+        +getPreco(): double
+        +getQuantidade(): int
+        +setQuantidade(quantidade: int): void
+        +detalhes(): String
+    }
+
+    class ProdutoPerecivel {
+        -String dataValidade
+        +ProdutoPerecivel(codigo: String, nome: String, preco: double, quantidade: int, dataValidade: String)
+        +getDataValidade(): String
+        +detalhes(): String
+    }
+
+    class ProdutoDuravel {
+        -String material
+        +ProdutoDuravel(codigo: String, nome: String, preco: double, quantidade: int, material: String)
+        +getMaterial(): String
+        +detalhes(): String
+    }
+
+    class Estoque {
+        -List<Produto> produtos
+        -static String NOME_ESTOQUE
+        +Estoque()
+        +adicionarProduto(produto: Produto): void
+        +removerProduto(codigo: String): boolean
+        +buscarProduto(codigo: String): Produto
+        +atualizarQuantidade(codigo: String, novaQuantidade: int): boolean
+        +listarTodosProdutos(): void
+        +static exibirNomeEstoque(): void
+    }
+
+    Produto <|-- ProdutoPerecivel : Herança
+    Produto <|-- ProdutoDuravel : Herança
+    Estoque "1" -- "0..*" Produto : contém
